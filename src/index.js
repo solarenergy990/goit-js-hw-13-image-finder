@@ -16,7 +16,6 @@ const imagesApiService = new ImagesApiService();
 const onSearch = evt => {
   evt.preventDefault();
 
-  console.log(evt);
   clearGalleryContainer();
   imagesApiService.query = evt.currentTarget.elements.query.value;
   imagesApiService.resetPage();
