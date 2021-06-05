@@ -1,21 +1,40 @@
 const API_KEY = '21934405-57162f124158c436f0bdddd5d';
 const BASE_URL = 'https://pixabay.com/api';
-const pageNumber = '1';
 
-async function fetchImages(searchQuery) {
-  const response = await fetch(
-    `${BASE_URL}/?image_type=photo&orientation=horizontal&q=${searchQuery}&page=${pageNumber}&per_page=12&key=${API_KEY}`,
-  );
-  const data = response.json();
-
-  console.log(response);
-  console.log(data);
-
-  if (response.ok === false) {
-    return error({ delay: 1000, text: 'Nothing found' }); // in case fetch reacts wrong on error 404
+export default class ImagesApiService {
+  constructor() {
+    this.searchQuery = '';
+    this.page = 1;
+    this.perPage = 12;
   }
 
-  return data;
-}
+  fetchImages() {
+    console.log(this);
+    const url = `${BASE_URL}/?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=${this.perPage}&key=${API_KEY}`;
 
-export default { fetchImages };
+    return fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        // console.log(data.hits);
+        this.incrementPage();
+
+        return data.hits;
+      });
+  }
+
+  incrementPage() {
+    this.page += 1;
+  }
+
+  resetPage() {
+    this.page = 1;
+  }
+
+  get query() {
+    return this.searchQuery;
+  }
+
+  set query(newQuery) {
+    this.searchQuery = newQuery;
+  }
+}
