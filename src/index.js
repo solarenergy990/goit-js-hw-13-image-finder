@@ -39,7 +39,6 @@ const clearGalleryContainer = () => {
 const element = document.getElementById('js-gallery');
 
 const moveTo = () => {
-  console.log(element);
   element.scrollIntoView({
     behavior: 'smooth',
     block: 'end',
