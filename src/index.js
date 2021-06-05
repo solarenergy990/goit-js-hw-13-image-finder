@@ -9,12 +9,14 @@ import getRefs from './js/refs';
 import ImagesApiService from './js/apiService';
 
 const refs = getRefs();
+const element = document.getElementById('js-gallery');
 
 const imagesApiService = new ImagesApiService();
 
 const onSearch = evt => {
   evt.preventDefault();
 
+  console.log(evt);
   clearGalleryContainer();
   imagesApiService.query = evt.currentTarget.elements.query.value;
   imagesApiService.resetPage();
@@ -27,15 +29,12 @@ const onLoadMore = () => {
 };
 
 const appendImagesMarkUp = hits => {
-  console.log(hits);
   refs.gallery.insertAdjacentHTML('beforeend', imageCard(hits));
 };
 
 const clearGalleryContainer = () => {
   refs.gallery.innerHTML = '';
 };
-
-const element = document.getElementById('js-gallery');
 
 const moveTo = () => {
   element.scrollIntoView({
