@@ -1,23 +1,15 @@
 import './sass/main.scss';
 import '@pnotify/core/dist/PNotify.css';
 import '@pnotify/core/dist/BrightTheme.css';
-import { error } from '@pnotify/core';
+// import { error } from '@pnotify/core';
 
-import searchForm from '../src/templates/search-form.hbs';
 import imageCard from '../src/templates/image-card.hbs';
 
 import debounce from 'lodash.debounce';
-// import getRefs from './js/refs';
+import getRefs from './js/refs';
 import ImagesApiService from './js/apiService';
 
-// const refs = getRefs();
-const refs = {
-  mainContainer: document.querySelector('.js-main-container'),
-  searchForm: document.querySelector('#search-form'),
-  gallery: document.querySelector('.js-gallery'),
-  submitBtn: document.querySelector('[data-action="submit"]'),
-  loadMoreBtn: document.querySelector('[data-action="load-more"]'),
-};
+const refs = getRefs();
 
 const imagesApiService = new ImagesApiService();
 
@@ -44,5 +36,17 @@ const clearGalleryContainer = () => {
   refs.gallery.innerHTML = '';
 };
 
+const element = document.getElementById('js-gallery');
+
+const moveTo = () => {
+  console.log(element);
+  element.scrollIntoView({
+    behavior: 'smooth',
+    block: 'end',
+  });
+};
+
 refs.searchForm.addEventListener('submit', onSearch);
+refs.searchForm.addEventListener('submit', debounce(moveTo, 750));
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
+refs.loadMoreBtn.addEventListener('click', debounce(moveTo, 750));
