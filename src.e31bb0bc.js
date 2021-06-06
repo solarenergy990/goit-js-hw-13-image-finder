@@ -2470,13 +2470,10 @@ const onLoadMore = () => {
 
 const appendImagesMarkUp = hits => {
   refs.gallery.insertAdjacentHTML('beforeend', (0, _imageCard.default)(hits));
-  console.log(hits);
 
   if (hits.length >= 12) {
     refs.loadMoreBtn.classList.remove('hidden');
-  }
-
-  if (hits.length < 12) {
+  } else {
     refs.loadMoreBtn.classList.add('hidden');
   } // moveTo();
 
@@ -2523,7 +2520,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53751" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64228" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
