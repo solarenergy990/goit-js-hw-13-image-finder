@@ -27,11 +27,8 @@ export default class ImagesApiService {
       `${BASE_URL}/?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=${this.perPage}&key=${API_KEY}`,
     );
 
-    const data = await url.json().then(data => {
-      this.incrementPage();
-
-      return data;
-    });
+    const data = await url.json();
+    this.incrementPage();
 
     return data.hits;
   }

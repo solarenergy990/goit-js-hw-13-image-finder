@@ -4,7 +4,7 @@ import '@pnotify/core/dist/BrightTheme.css';
 
 import imageCard from '../src/templates/image-card.hbs';
 
-import debounce from 'lodash.debounce';
+// import debounce from 'lodash.debounce';
 import getRefs from './js/refs';
 import ImagesApiService from './js/apiService';
 
@@ -24,11 +24,19 @@ const onSearch = evt => {
 };
 
 const onLoadMore = () => {
-  imagesApiService.fetchImages().then(appendImagesMarkUp);
+  imagesApiService.fetchImages().then(appendImagesMarkUp).then(moveTo); // fn moveTo was called here to avoid scroll after search button
 };
 
 const appendImagesMarkUp = hits => {
   refs.gallery.insertAdjacentHTML('beforeend', imageCard(hits));
+
+  if (hits.length >= 12) {
+    refs.loadMoreBtn.classList.remove('hidden');
+  }
+  if (hits.length < 12) {
+    refs.loadMoreBtn.classList.add('hidden');
+  }
+  // moveTo();
 };
 
 const clearGalleryContainer = () => {
@@ -43,6 +51,5 @@ const moveTo = () => {
 };
 
 refs.searchForm.addEventListener('submit', onSearch);
-refs.searchForm.addEventListener('submit', debounce(moveTo, 750));
+
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
-refs.loadMoreBtn.addEventListener('click', debounce(moveTo, 750));
