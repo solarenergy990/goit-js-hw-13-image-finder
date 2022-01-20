@@ -28,12 +28,12 @@ const onLoadMore = () => {
 };
 
 const appendImagesMarkUp = hits => {
+  console.log(hits);
   refs.gallery.insertAdjacentHTML('beforeend', imageCard(hits));
 
   if (hits.length >= 12) {
     refs.loadMoreBtn.classList.remove('hidden');
-  }
-  if (hits.length < 12) {
+  } else {
     refs.loadMoreBtn.classList.add('hidden');
   }
   // moveTo();
